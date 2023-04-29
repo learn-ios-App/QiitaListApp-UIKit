@@ -13,6 +13,9 @@
 		8BF1DB3B29FCD1AA00693483 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BF1DB3929FCD1AA00693483 /* Main.storyboard */; };
 		8BF1DB3D29FCD1AB00693483 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BF1DB3C29FCD1AB00693483 /* Assets.xcassets */; };
 		8BF1DB4029FCD1AB00693483 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BF1DB3E29FCD1AB00693483 /* LaunchScreen.storyboard */; };
+		8BF1DB4B29FCD22900693483 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1DB4A29FCD22900693483 /* APIError.swift */; };
+		8BF1DB4D29FCD29400693483 /* QiitaAPIClientAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1DB4C29FCD29400693483 /* QiitaAPIClientAPIClient.swift */; };
+		8BF1DB5129FCD65800693483 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF1DB5029FCD65800693483 /* Article.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,9 @@
 		8BF1DB3C29FCD1AB00693483 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8BF1DB3F29FCD1AB00693483 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8BF1DB4129FCD1AB00693483 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8BF1DB4A29FCD22900693483 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		8BF1DB4C29FCD29400693483 /* QiitaAPIClientAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QiitaAPIClientAPIClient.swift; sourceTree = "<group>"; };
+		8BF1DB5029FCD65800693483 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +62,42 @@
 		8BF1DB3229FCD1AA00693483 /* QiitaListApp-UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				8BF1DB3329FCD1AA00693483 /* AppDelegate.swift */,
-				8BF1DB3529FCD1AA00693483 /* SceneDelegate.swift */,
-				8BF1DB3729FCD1AA00693483 /* ViewController.swift */,
-				8BF1DB3929FCD1AA00693483 /* Main.storyboard */,
+				8BF1DB4929FCD20D00693483 /* Model */,
+				8BF1DB4829FCD1F700693483 /* Views */,
+				8BF1DB4729FCD1D700693483 /* Controller */,
 				8BF1DB3C29FCD1AB00693483 /* Assets.xcassets */,
-				8BF1DB3E29FCD1AB00693483 /* LaunchScreen.storyboard */,
 				8BF1DB4129FCD1AB00693483 /* Info.plist */,
 			);
 			path = "QiitaListApp-UIKit";
+			sourceTree = "<group>";
+		};
+		8BF1DB4729FCD1D700693483 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				8BF1DB3329FCD1AA00693483 /* AppDelegate.swift */,
+				8BF1DB3529FCD1AA00693483 /* SceneDelegate.swift */,
+				8BF1DB3729FCD1AA00693483 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		8BF1DB4829FCD1F700693483 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8BF1DB3E29FCD1AB00693483 /* LaunchScreen.storyboard */,
+				8BF1DB3929FCD1AA00693483 /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		8BF1DB4929FCD20D00693483 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8BF1DB4A29FCD22900693483 /* APIError.swift */,
+				8BF1DB4C29FCD29400693483 /* QiitaAPIClientAPIClient.swift */,
+				8BF1DB5029FCD65800693483 /* Article.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +171,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BF1DB4D29FCD29400693483 /* QiitaAPIClientAPIClient.swift in Sources */,
 				8BF1DB3829FCD1AA00693483 /* ViewController.swift in Sources */,
+				8BF1DB5129FCD65800693483 /* Article.swift in Sources */,
+				8BF1DB4B29FCD22900693483 /* APIError.swift in Sources */,
 				8BF1DB3429FCD1AA00693483 /* AppDelegate.swift in Sources */,
 				8BF1DB3629FCD1AA00693483 /* SceneDelegate.swift in Sources */,
 			);
