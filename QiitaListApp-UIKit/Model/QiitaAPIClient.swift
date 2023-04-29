@@ -7,7 +7,7 @@
 
 import Foundation
 
-class QiitaAPIClientAPIClient {
+class QiitaAPIClient {
     func fetchArticles() async throws -> [Article] {
         guard let url = URL(string: "https://qiita.com/api/v2/items") else {
             throw APIError.invalidURL

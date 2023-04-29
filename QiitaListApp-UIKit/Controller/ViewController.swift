@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     
     private var articlesList: [Article] = []
-    let qiitaAPIClient = QiitaAPIClientAPIClient()
+    let qiitaAPIClient = QiitaAPIClient()
     
     //CellのId作成
     private let cellId = "Cell"
