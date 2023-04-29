@@ -23,14 +23,4 @@ class QiitaAPIClientAPIClient {
         }
         return result
     }
-    
-    func fetchImageData(url: URL) async throws -> Data {
-        guard let (data, response) = try? await URLSession.shared.data(from: url) else {
-            throw APIError.networkError
-        }
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-            throw APIError.responseError
-        }
-        return data
-    }
 }
