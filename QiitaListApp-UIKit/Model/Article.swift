@@ -12,11 +12,9 @@ struct Article: Decodable {
     let user: User
     
     struct User: Decodable {
-        let name: String
-        let profileImageURL: URL
+        let profileImageURL: URL?
         
         enum CodingKeys: String, CodingKey {
-            case name
             case profileImageURL = "profile_image_url"
         }
     }
