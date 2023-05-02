@@ -27,11 +27,12 @@ class ViewController: UIViewController {
         tableView.frame.size = view.frame.size
         
         //データソースの設定
-        tableView.delegate = self
+        tableView.delegate = self   
         tableView.dataSource = self
         //cellIDの設定
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         
+        //非同期のメソッドを呼び出す
         Task {
             await loadArticles()
         }
@@ -62,18 +63,18 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         var content = cell.defaultContentConfiguration()
         
         content.text = articlesList[indexPath.row].title
-        URLSession.shared.dataTask(with: articlesList[indexPath.row].user.profileImageURL) { data, _, error in
-            if let _ = error {
-                print("画像取得失敗 \(indexPath)")
-            } else {
-                if let data = data {
-                    DispatchQueue.main.async {
-                        content.image = UIImage(data: data)?.resizeUIImage(width: 45, height: 45)
-                        cell.contentConfiguration = content
-                    }
+        
+        qiitaAPIClient.loadImage(url: articlesList[indexPath.row].user.profileImageURL) { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    content.image = UIImage(data: data)?.resizeUIImage(width: 45, height: 45)
+                    cell.contentConfiguration = content
                 }
+            case .failure(let error):
+                print("画像取得: \(error.title)")
             }
-        }.resume()
+        }
         
         cell.contentConfiguration = content
                 
@@ -88,9 +89,20 @@ extension UIImage {
         // コンテキストに自身に設定された画像を描画する.
         self.draw(in: CGRectMake(0, 0, width, height))
         // コンテキストからUIImageを作る.
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()?.roundedCorners()
         // コンテキストを閉じる.
         UIGraphicsEndImageContext()
         return newImage
+    }
+    
+    private func roundedCorners() -> UIImage {
+        return UIGraphicsImageRenderer(size: self.size).image { context in
+            let rect = context.format.bounds
+            // Rectを角丸にする
+            let roundedPath = UIBezierPath(roundedRect: rect, cornerRadius: 30)
+            roundedPath.addClip()
+            // UIImageを描画
+            draw(in: rect)
+        }
     }
 }
