@@ -54,6 +54,7 @@ class ViewController: UIViewController {
 
 //ectensionはプロトコル適応させる時に使える
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articlesList.count
     }
@@ -83,6 +84,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension UIImage {
+    
     func resizeUIImage(width : CGFloat, height : CGFloat) -> UIImage? {
         // 指定された画像の大きさのコンテキストを用意.
         UIGraphicsBeginImageContext(CGSizeMake(width, height))
@@ -96,6 +98,7 @@ extension UIImage {
     }
     
     private func roundedCorners() -> UIImage {
+        
         return UIGraphicsImageRenderer(size: self.size).image { context in
             let rect = context.format.bounds
             // Rectを角丸にする

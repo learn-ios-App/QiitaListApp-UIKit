@@ -8,7 +8,9 @@
 import Foundation
 
 class QiitaAPIClient {
+    
     func fetchArticles() async throws -> [Article] {
+        
         guard let url = URL(string: "https://qiita.com/api/v2/items") else {
             throw APIError.invalidURL
         }
@@ -25,6 +27,7 @@ class QiitaAPIClient {
     }
     
     func loadImage(url: URL, complecation: @escaping (Result<Data, APIError>) -> Void) {
+        
         let request = URLRequest(url: url)
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
@@ -40,5 +43,4 @@ class QiitaAPIClient {
             return complecation(.success(data))
         }.resume()
     }
-    
 }
