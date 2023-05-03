@@ -1,9 +1,4 @@
-//
-//  ViewController.swift
-//  QiitaListApp-UIKit
-//
-//  Created by 渡邊魁優 on 2023/04/29.
-//
+
 
 import UIKit
 
@@ -40,6 +35,7 @@ class ViewController: UIViewController {
     
     //QiitaAPIから取得したデータをメインスレッドでViewに反映するメソッド
     private func loadArticles() async {
+        
         do {
             let articles = try await qiitaAPIClient.fetchArticles()
             DispatchQueue.main.async {
@@ -63,6 +59,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     //Cellの内容
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         var content = cell.defaultContentConfiguration()
         
@@ -80,6 +77,18 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                 print("画像取得失敗: \(error.title)")
             }
         }
+//        Task {
+//            do {
+//                let data = try await qiitaAPIClient.loadImage2(url: articlesList[indexPath.row].user.profileImageURL)
+//                DispatchQueue.main.async {
+//                    content.image = UIImage(data: data)?.transformImage(width: 45, height: 45)
+//                    cell.contentConfiguration = content
+//                }
+//            } catch {
+//                let error = error as? APIError ?? APIError.unknown
+//                print(error.title)
+//            }
+//        }
         
         cell.contentConfiguration = content
                 
