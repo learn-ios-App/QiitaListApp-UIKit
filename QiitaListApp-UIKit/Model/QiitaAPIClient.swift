@@ -43,19 +43,4 @@ class QiitaAPIClient {
             return complecation(.success(data))
         }.resume()
     }
-    
-    //上のメソッドのasync, awaitバージョン
-    func loadImage2(url: URL?) async throws -> Data {
-        
-        guard let url = url else {
-            throw APIError.invalidURL
-        }
-        guard let (data, res) = try? await URLSession.shared.data(from: url) else {
-            throw APIError.networkError
-        }
-        guard let response = res as? HTTPURLResponse, response.statusCode == 200 else {
-            throw APIError.responseError
-        }
-        return data
-    }
 }

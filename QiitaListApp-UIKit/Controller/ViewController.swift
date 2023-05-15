@@ -4,7 +4,10 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    //リストに表示するデータリスト
     private var articlesList: [Article] = []
+    
+    //API通信を行うためのインスタンス
     let qiitaAPIClient = QiitaAPIClient()
     
     //CellのId作成
@@ -65,7 +68,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         
         content.text = articlesList[indexPath.row].title
         
-        //画像URLから取得したデータをViewに反映
+        //URLから取得した画像をViewに反映
         qiitaAPIClient.loadImage(url: articlesList[indexPath.row].user.profileImageURL) { result in
             switch result {
             case .success(let data):
@@ -74,21 +77,9 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                     cell.contentConfiguration = content
                 }
             case .failure(let error):
-                print("画像取得失敗: \(error.title)")
+                print("画像取得失敗\(indexPath.row)行目: \(error.title)")
             }
         }
-//        Task {
-//            do {
-//                let data = try await qiitaAPIClient.loadImage2(url: articlesList[indexPath.row].user.profileImageURL)
-//                DispatchQueue.main.async {
-//                    content.image = UIImage(data: data)?.transformImage(width: 45, height: 45)
-//                    cell.contentConfiguration = content
-//                }
-//            } catch {
-//                let error = error as? APIError ?? APIError.unknown
-//                print(error.title)
-//            }
-//        }
         
         cell.contentConfiguration = content
                 
