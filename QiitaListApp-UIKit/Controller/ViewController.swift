@@ -47,8 +47,15 @@ class ViewController: UIViewController {
             }
         } catch {
             let error = error as? APIError ?? APIError.unknown
-            print(error.title)
+            alertAction(title: "エラー", message: "\(error.title)です", action: { _ in Task { await self.loadArticles() } })
         }
+    }
+    
+    private func alertAction(title: String, message: String, action: ((UIAlertAction) -> Void)?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let button = UIAlertAction(title: "リトライ", style: .default, handler: action)
+        alert.addAction(button)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
