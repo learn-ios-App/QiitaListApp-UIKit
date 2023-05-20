@@ -37,14 +37,13 @@ class ViewController: UIViewController {
     }
     
     //QiitaAPIから取得したデータをメインスレッドでViewに反映するメソッド
+    @MainActor
     private func loadArticles() async {
         
         do {
             let articles = try await qiitaAPIClient.fetchArticles()
-            DispatchQueue.main.async {
-                self.articlesList = articles
-                self.tableView.reloadData()
-            }
+            self.articlesList = articles
+            self.tableView.reloadData()
         } catch {
             let error = error as? APIError ?? APIError.unknown
             alertAction(title: "エラー", message: "\(error.title)です", action: { _ in Task { await self.loadArticles() } })
@@ -52,6 +51,7 @@ class ViewController: UIViewController {
     }
     
     private func alertAction(title: String, message: String, action: ((UIAlertAction) -> Void)?) {
+        
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let button = UIAlertAction(title: "リトライ", style: .default, handler: action)
         alert.addAction(button)
@@ -76,10 +76,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         content.text = articlesList[indexPath.row].title
         
         //URLから取得した画像をViewに反映
-        qiitaAPIClient.loadImage(url: articlesList[indexPath.row].user.profileImageURL) { result in
+        qiitaAPIClient.loadImage2(url: articlesList[indexPath.row].user.profileImageURL) { result in
             switch result {
             case .success(let data):
-                DispatchQueue.main.async {
+                Task { @MainActor in
                     content.image = UIImage(data: data)?.transformImage(width: 45, height: 45)
                     cell.contentConfiguration = content
                 }
@@ -94,7 +94,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-//UIImageにメソッドを追加
+//UIImageに画像サイズと角を調整するメソッドを追加
 extension UIImage {
     
     func transformImage(width : CGFloat, height : CGFloat) -> UIImage? {
